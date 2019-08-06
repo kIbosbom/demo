@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>{$article.title}-{$conf.title}</title>
+		{include file="public/header" /}
+		<style>
+			.container{
+				align-items: flex-start!important;
+				-webkit-align-items: flex-start!important;
+			}
+		</style>
+	</head>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/title.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/introduction.css" />
+	<body>
+		{include file="public/nav" /}
+		<!--头部-->
+		<div class="container flex">
+			<div class="left">
+				<div class="left_title flex c_white"><i class="icon"></i>
+					<p>民防科普</p>
+				</div>
+				<div class="list">
+					<ul class="list_ul">
+						{volist name="node" id="vo"}
+			                <li class="list_li">
+			                    {if condition="$vo['childer']") neq '0'"}
+			                       <span href="javascript:;">
+			                    {else /}
+			                        <a href="{:url('port/Science/index',['article_id'=>$vo.id,'cateid'=>$cateid])}"> 
+			                    {/if}
+			                        <div class="flex">
+			                            <p><img class="li_img" src="__STATIC__/myhome/img/survey/Arrow.png" /></p>
+			                            <p class="c_333">{$vo.title}</p>
+			                        </div>
+			                    </a>
+			                    <div class="drop_down">
+			                        {volist name="vo['childer']" id="v"}
+			                            <p>
+			                                <a href="{:url('port/Science/index',['article_id'=>$v.id,'cateid'=>$cateid])}">{$v.title}</a>
+			                            </p>
+			                        {/volist}
+			                    </div>
+			                </li>
+			            {/volist}
+					</ul>
+				</div>
+			</div>
+			<div class="right">
+				<div class="right_title flex">
+					<div class="flex"><i class="icon"></i>
+						<p class="c_white">{$map}</p>
+					</div>
+					<div class="right_title_r c_white flex">
+						<p>当前位置：<span><spa>民防科普</spa></span><span style="font-size: 14px;margin: 0 5px;">></span><span><span href="javascript:;">{$map}</span></span><span style="font-size: 14px;margin: 0 5px;">></span>正文</p>
+					</div>
+				</div>
+				<div class="r_conter">
+					<div>
+
+						<div class="r_text ">
+							<div class="text_title">
+								<p>{$article['title']}</p>
+								<p>发布日期：{$article['create_time']|date="Y-m-d",###}</p>
+								<p></p>
+							</div>
+							<div class="text_conter">
+								<p style="text-indent:2em;">
+									{$article['content']}
+								</p>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		{include file="public/footer" /}
+		<script type="text/javascript">
+			//下拉列表
+			(function() {
+				var list_ul = document.querySelector('.list_ul');
+				var li_img = document.getElementsByClassName('li_img');
+				var drop_down = document.getElementsByClassName('drop_down');
+				var index = 0;
+				for(var i = 0; i < list_ul.children.length; i++) {
+					list_ul.children[i].setAttribute('index', i);
+					list_ul.children[i].children[0].children[0].onclick = function() {
+						index = this.parentNode.parentNode.getAttribute('index');
+						toggleClass(drop_down[index], 'drop_down_active');
+					}
+				}
+
+				function hasClass(obj, cls) {
+					var cls = cls || '';
+					if(cls.replace(/\s/g, '').length == 0) {
+						return false;
+					} else {
+						return new RegExp(' ' + cls + '').test(' ' + obj.className);
+					}
+				}
+
+				function toggleClass(obj, cls) {
+					hasClass(obj, cls) ? removeFn(obj, cls) : addFn(obj, cls);
+					console.log(index)
+				}
+
+				function removeFn(obj, cls) {
+					obj.classList.remove(cls);
+					li_img[index].style.transform = "rotate(0deg)"
+				}
+
+				function addFn(obj, cls) {
+					obj.classList.add(cls);
+					li_img[index].style.transform = "rotate(90deg)"
+				}
+			})();
+			
+			(function(){
+				var r_conter =document.querySelector('.r_conter');
+				var list=document.querySelector('.list');
+				var H=r_conter.offsetHeight;
+				list.style.height=H+'px'
+			})();
+		</script>
+	</body>
+
+</html>

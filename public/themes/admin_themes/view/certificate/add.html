@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="__ADMIN__/lib/layui/css/layui.css"  media="all">
+</head>
+<body class="vae-body">
+<form class="layui-form vae-content">
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label" style="width: 56px;">证书名称</label>
+        <div id="xza" class="layui-input-inline" style="width: 200px;">
+          <select lay-filter="demo" name="" id="typeId">
+            {volist name="data" id="vo"}
+              <option value="{$vo.id}">{$vo.value}</option>
+            {/volist}
+          </select>
+        </div>
+        <label class="layui-form-label" style="width: 85px;">新增证书名称</label>
+        <div class="layui-input-inline" style="width: 200px;">
+          <input type="text" placeholder="证书名称" id="zs_uname" class="layui-input">
+        </div>
+        <div class="layui-input-inline" style="width: 70px;">
+          <span onclick="add_xz()" class="dj layui-btn">新增</span>
+        </div>
+        <div class="layui-input-inline" style="width: 70px;">
+          <span onclick="add_sc()" class="dj layui-btn layui-btn-danger">删除</span>
+        </div>
+      </div>
+      <div class="layui-inline" style="float:right;width:150px;">
+        <select lay-filter="nts" name="n" id="">
+          <option value="1">1条数据</option>
+          <option value="2">2条数据</option>
+          <option value="3">3条数据</option>
+          <option value="4">4条数据</option>
+          <option value="5">5条数据</option>
+          <option value="6">6条数据</option>
+          <option value="7">7条数据</option>
+          <option value="8">8条数据</option>
+          <option value="9">9条数据</option>
+          <option value="10">10条数据</option>
+          <!-- <option value="11">11条数据</option>
+          <option value="12">12条数据</option>
+          <option value="13">13条数据</option>
+          <option value="14">14条数据</option>
+          <option value="15">15条数据</option>
+          <option value="16">16条数据</option>
+          <option value="17">17条数据</option>
+          <option value="18">18条数据</option>
+          <option value="19">19条数据</option> -->
+          <option selected value="20">20条数据</option>
+        </select>
+      </div>
+  </div>
+  <div class="layui-form">
+    <table class="layui-table">
+    <colgroup>
+      <col width="20">
+      <col width="130">
+      <col width="150">
+      <col width="70">
+      <col width="50">
+      <col width="150">
+      <col width="150">
+      <col width="100">
+      <col width="100">
+    </colgroup>
+      <thead>
+        <tr>
+          <th style="text-align: center;">序号</th>
+          <th style="text-align: center;">证书名称</th>
+          <th style="text-align: center;">证书编号</th>
+          <th style="text-align: center;">姓名</th>
+          <th style="text-align: center;">性别</th>
+          <th style="text-align: center;">身份证号码</th>
+          <th style="text-align: center;">工作单位</th>
+          <th style="text-align: center;">发布日期</th>
+          <th style="text-align: center;">失效日期</th>
+        </tr> 
+      </thead>
+      <tbody id="nt">
+        <!-- <tr>
+          <td style="text-align: center;">1</td>
+          <td style="text-align: center;"><input style="width: 100%; height: 100%;" type="text" name="key[]" lay-verify="required" autocomplete="off"></td>
+          <td style="text-align: center;"><input style="width: 100%; height: 100%;" name="number[]" lay-verify="required" type="text"></td>
+          <td style="text-align: center;"><input style="width: 100%; height: 100%;" name="name[]" lay-verify="required" type="text"></td>
+          <td style="text-align: center;"><input style="width: 100%; height: 100%;" name="sex[]" lay-verify="required" type="text"></td>
+          <td style="text-align: center;"><input style="width: 100%; height: 100%;" name="code[]" lay-verify="required" type="text"></td>
+          <td style="text-align: center;"><input style="width: 100%; height: 100%;" name="unit[]" type="text"></td>
+          <td style="text-align: center;"><input style="width: 100%; height: 100%;" class="test-item" name="u_time[]" type="text"></td>
+          <td style="text-align: center;"><input style="width: 100%; height: 100%;" class="test-item" name="n_time[]" type="text"></td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block" style="margin-left:10px;">
+      <button class="layui-btn" lay-submit="" lay-filter="vaeform">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+      <a class="layui-btn layui-btn-warm" href="javascript:history.back(-1)">返回</a>
+    </div>
+  </div>
+</form>
+          
+<script src="__ADMIN__/lib/layui/layui.js" charset="utf-8"></script>
+<script src="__STATIC__/myhome/js/jquery-1.11.1.min.js" charset="utf-8"></script>
+<script>
+//添加session
+function add_xz(){
+  var xz = $('#zs_uname').val();
+  if(xz == ''){
+    alert('请输入证书名称');
+    return false;
+  }
+  $.ajax({
+    url:"/admin/Certificate/add_xz",
+    type:'post',
+    data:{'value':xz},
+    success:function(e){
+      console.log(e);
+      if(e.code == 1){
+        alert('添加成功！');
+        window.location.reload();
+      }else{
+        alert('添加失败!');
+      }
+    }
+  })
+}
+
+//删除session
+function add_sc(){
+  var sc = $("#typeId").val();
+  $.ajax({
+    url:"/admin/Certificate/add_sc",
+    type:'post',
+    data:{'id':sc},
+    success:function(e){
+      console.log(e);
+      if(e.code == 1){
+        alert('删除成功！');
+        window.location.reload();
+      }else{
+        alert('删除失败!');
+      }
+    }
+  })
+}
+
+//动态添加
+function add_ap(){
+  $("#append_add").append(
+      '<div class="layui-inline">'+
+        '<label class="layui-form-label">添加证书</label>'+
+        '<div class="layui-input-inline" style="width: 200px;">'+
+          '<input type="text" placeholder="证书名称" lay-verify="required" name="zs_name[]" autocomplete="off" class="layui-input">'+
+        '</div>'+
+        '<div class="layui-form-mid">-</div>'+
+        '<div class="layui-input-inline" style="width: 200px;">'+
+          '<input type="text" placeholder="证书编号" lay-verify="required" name="zs_number[]" autocomplete="off" class="layui-input">'+
+        '</div>'+
+        '<div class="layui-input-inline" style="width: 100px;">'+
+          '<span onclick="del_ap(this)" class="layui-btn layui-btn-danger">删除</span>'+
+        '</div>'+
+      '</div>'
+  );
+}
+//移除
+function del_ap(e) {
+  $(e).parent().parent().remove();
+}
+
+
+layui.config({
+    base: '/themes/admin_themes/module/'
+}).use(['upload','form','vaeyo','laydate'], function(){
+  var form = layui.form
+  var laydate = layui.laydate
+  ,layer = layui.layer
+  ,$ = layui.$
+  ,upload = layui.upload
+  ,vae = layui.vaeyo;
+  
+  $(document).on("click",".test-item",function(){
+    //同时绑定多个
+    lay('.test-item').each(function(){
+      laydate.render({
+        elem: this
+        ,trigger: 'click'
+      });
+    });
+  });
+
+  layui.use('element', function() {
+    var str = '';
+    for (var i = 1; i <= 20; i++) {
+    str+=
+      '<tr>'+
+        '<td style="text-align: center;">'+i+'</td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" type="text" name="key[]" lay-verify="required" autocomplete="off"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" name="number[]" lay-verify="required" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" name="name[]" lay-verify="required" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" name="sex[]" lay-verify="required" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" name="code[]" lay-verify="required" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" name="unit[]" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" class="test-item" name="u_time[]" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" class="test-item" name="n_time[]" type="text"></td>'+
+        '<input type="hidden" name="status[]" value="1">'
+      '</tr>';
+    };
+    $("#nt").append(str);
+  });
+
+  //数据条数
+  form.on('select(nts)', function(data){
+    $("#nt").empty();
+    var str = '';
+    for (var i = 1; i <= data.value; i++) {
+      str+=
+      '<tr>'+
+        '<td style="text-align: center;">'+i+'</td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" type="text" name="key[]" lay-verify="required" autocomplete="off"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" name="number[]" lay-verify="required" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" name="name[]" lay-verify="required" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" name="sex[]" lay-verify="required" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" name="code[]" lay-verify="required" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" name="unit[]" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" class="test-item" name="u_time[]" type="text"></td>'+
+        '<td style="text-align: center;"><input style="width: 100%; height: 100%;" class="test-item" name="n_time[]" type="text"></td>'+
+        '<input type="hidden" name="status[]" value="1">'
+      '</tr>';
+    };
+    $("#nt").append(str);
+  });
+
+  //select change事件
+  form.on('select(demo)', function(data){
+    $('input[name="key[]"]').val($("#typeId").find("option:selected").text());
+    $("#typeId").change(function () {
+      $('input[name="key[]"]').val($("#typeId").find("option:selected").text());
+    });
+  });
+
+  //头像上传
+  var uploadInst = upload.render({
+    elem: '#test1'
+    ,url: '/admin/api/upload'
+    ,accept:'file'
+    ,done: function(res){
+      //如果上传失败
+      if(res.code == 0){
+        return layer.msg('上传失败');
+      }
+      //上传成功
+      $('#demo1 input').attr('value',res.data);
+      $('#demo1 img').attr('src',res.data);
+    }
+  });
+  
+  //监听提交
+  form.on('submit(vaeform)', function(data){
+    $.ajax({
+      url:"/admin/Certificate/addSubmit",
+      type:'post',
+      data:data.field,
+      success:function(e){
+        console.log(e);
+        if(e.code==1){
+          layer.confirm('保存成功,返回列表页吗?', {icon: 3, title:'提示'}, function(index){
+            vae.backThisTab();
+            layer.close(index);
+          });
+        }else{
+          layer.msg(e.msg);
+        }
+      }
+    })
+    return false;
+  });
+  
+});
+</script>
+</body>
+</html>

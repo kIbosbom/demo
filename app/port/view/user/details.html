@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>会员风采-{$conf.title}</title>
+		{include file="public/header" /}
+		<style>
+			.container{
+				align-items: flex-start!important;
+				-webkit-align-items: flex-start!important;
+			}
+		</style>
+	</head>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/title.css"/>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/introduction.css"/>
+	<body>
+		{include file="public/nav" /}
+		<div class="container flex">
+			{include file="user/left"}
+			<div class="right">
+				<div class="right_title flex">
+					<div class="flex right_l">
+						<i class="icon"></i>
+						<p class="c_white">会员详情</p>
+					</div>
+					<div class="right_title_r c_white flex">
+						<p>当前位置：<span><span></span>会员风采</span></span><span style="font-size: 14px;margin: 0 5px;">></span><span><span>会员简介</span></span><span style="font-size: 14px;margin: 0 5px;">></span>会员详情</p>
+					</div>
+				</div>
+				<div class="r_conter">
+					<div>
+						<div class="r_text ">
+							<div class="text_title">
+								<p>{$article['title']}</p>
+								<p>发布日期：{$article['create_time']|date="Y-m-d",###}</p>
+								<p></p>
+							</div>
+							<div class="text_conter">
+								<p style="text-indent:2em;">
+									{$article['content']}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="public/footer" /}
+		<script type="text/javascript">
+			(function(){
+				var r_conter =document.querySelector('.r_conter');
+				var list=document.querySelector('.list');
+				var H=r_conter.offsetHeight;
+				list.style.height=H+'px'
+			})();
+		</script>
+	</body>
+
+</html>

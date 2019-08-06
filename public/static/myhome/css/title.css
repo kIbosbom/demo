@@ -1,0 +1,242 @@
+		html,
+		body {
+			font-size: 10px;
+			font-family:MicrosoftYaHei;
+		}
+		
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		
+		img {
+			display: block;
+			width: 100%;
+		}
+		
+		ul,
+		li {
+			list-style: none;
+		}
+		
+		a {
+			display: block;
+			text-decoration: none;
+			color: #FFFFFF;
+		}
+		a:hover{
+			text-decoration: none;
+		}
+
+
+		/*头部*/
+		.flex {
+			display: flex;
+			display: -webkit-flex;
+		}
+		
+		.title {
+			width: 100%;
+			min-width: 964px;
+			height: 240px;
+			margin: 0 auto;
+			position: relative;
+			overflow: hidden;
+		}
+		.title>img{
+			position: absolute;
+			width: 1920px;
+			min-width: 964px;
+			height: 240px;
+			top: 0;
+			left: 50%;
+			margin-left: -960px;
+		}
+		
+		.title_conter {
+			width: 62.5%;
+			min-width: 964px;
+			height: 100%;
+			margin: 0 auto;
+			position: relative;
+		}
+		
+		.title_conter>div {
+			width: 100%;
+			height: 100%;
+			position: relative;
+		}
+		
+		.logo {
+			width: 48.333333%;
+			position: absolute;
+			top: 18.33333%;
+			left: 0;
+		}
+		
+		/*.title_text {
+			width: 31.4166666%;
+			position: absolute;
+			top: 40.83333333%;
+			right: 0;
+		}*/
+
+		.title_text {
+			position: absolute;
+			top: 36.83333333%;
+			right: -4px;
+		}
+		
+		.title_btn {
+			position: absolute;
+			top: 11.25%;
+			align-items: center;
+			right: 0;
+		}
+		
+		.title_btn>a {
+			font-size: 14px;
+			line-height: 14px;
+			padding: 0 6px;
+		}
+		
+		.title_btn>a:first-child {
+			border-right: 1px solid #ffffff;
+		}
+
+		.nav {
+			min-width: 964px;
+			background: -webkit-linear-gradient(#0F5EFF 40%, #0354DB);
+			/* Safari 5.1 - 6.0 */
+			background: -o-linear-gradient(#0F5EFF 40%, #0354DB);
+			/* Opera 11.1 - 12.0 */
+			background: -moz-linear-gradient(#0F5EFF 40%, #0354DB);
+			/* Firefox 3.6 - 15 */
+			background: linear-gradient(#0F5EFF 40%, #0354DB);
+			/*标准的语法（必须放在最后）*/
+		}
+		
+		.nav>div {
+			width: 62.5%;
+			min-width: 964px;
+			margin: 0 auto;
+		}
+		
+		.nav_ul {
+			align-items: center;
+			-webkit-align-items: center;
+		}
+		
+		.nav_ul>li {
+			width: 11.1111111%;
+		}
+		
+		.nav_ul>li>a {
+			text-align: center;
+			font-size: 16px;
+			line-height: 16px;
+			padding: 22px 0;
+			font-weight: 500;
+		}
+		.nav_ul>li>a:hover{
+			font-size: 14px;
+			font-weight: 300;
+		}
+		
+		
+		.nav_active {
+			background: -webkit-linear-gradient(#0248BC 40%, #0048DB);
+			/* Safari 5.1 - 6.0 */
+			background: -o-linear-gradient(#0248BC 40%, #0048DB);
+			/* Opera 11.1 - 12.0 */
+			background: -moz-linear-gradient(#0248BC 40%, #0048DB);
+			/* Firefox 3.6 - 15 */
+			background: linear-gradient(#0248BC 40%, #0048DB);
+			/*标准的语法（必须放在最后）*/
+		}
+		
+		.nav_ul>li>a:hover {
+			background: -webkit-linear-gradient(#0248BC 40%, #0048DB);
+			/* Safari 5.1 - 6.0 */
+			background: -o-linear-gradient(#0248BC 40%, #0048DB);
+			/* Opera 11.1 - 12.0 */
+			background: -moz-linear-gradient(#0248BC 40%, #0048DB);
+			/* Firefox 3.6 - 15 */
+			background: linear-gradient(#0248BC 40%, #0048DB);
+			/*标准的语法（必须放在最后）*/
+		}
+		/*头部*/
+		
+		/*尾部*/
+		.bottom_foot{
+			width: 100%;
+			min-width: 964px;
+			background: #005CFA;
+		}
+		.foot_new{
+			width: 62.5%;
+			min-width: 964px;
+			margin: 0 auto;
+		}
+
+		/**/
+		.friend_div{
+			padding: 22px 0 10px;
+		}
+
+		.friend>p{
+			width: 8%;
+			flex-wrap: wrap;
+			-webkit-flex-wrap: wrap;
+			justify-content: flex-start;	
+			-webkit-justify-content: flex-start;	
+		}
+		.friend>p>a{
+			margin: 0 0.6%;
+			font-size: 14px;
+		}
+		
+		.list_a_div{
+			width: 92%;
+			flex-wrap: wrap;
+			-webkit-flex-wrap: wrap;
+		}
+		
+		.list_a{
+			margin: 0 1% 0;
+			font-size: 14px;
+		}
+		.copyright{
+			align-items: center;
+			-webkit-align-items: center;
+			justify-content: center;
+			-webkit-justify-content: center;
+			padding-bottom: 26px;
+		}
+		.copyright>a{
+			align-items: center;
+			font-size: 14px;
+			color:rgba(255,255,255,1);
+			font-weight:400;
+			line-height:14px;
+			letter-spacing: 2px;
+			margin-right: 6px;
+			text-decoration: none;
+		}
+		.copyright>a>p{
+			width: 20px;
+			margin-right: 12px;
+		}
+		.copyright>p>a{
+			padding: 0 5px;
+			font-size: 14px;
+			color:rgba(255,255,255,1);
+			font-weight:400;
+			line-height:14px;
+			letter-spacing: 2px;
+		}				
+		/*尾部*/
+		
+		.iframe_box{
+			min-width: 964px;
+		}

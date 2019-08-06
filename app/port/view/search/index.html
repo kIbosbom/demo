@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>信息查询-{$conf.title}</title>
+		{include file="public/header" /}
+		<style>
+			.container{
+				align-items: flex-start!important;
+				-webkit-align-items: flex-start!important;
+			}
+		</style>
+	</head>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/title.css"/>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/search_content.css"/>
+	<body>
+		{include file="public/nav" /}		
+		<div class="container flex">
+			<div class="left">
+				<div class="left_title flex c_white"><i class="icon"></i>
+					<p>信息查询</p>
+				</div>
+				<div class="list">
+					<ul class="list_ul">
+						<li class="list_li">
+							<a href="{:url('port/search/index')}">
+								<div class="flex">
+									<p><img class="li_img" src="__STATIC__/myhome/img/survey/Arrow.png" /></p>
+									<p class="c_333">信息查询</p>
+								</div>
+							</a>
+							<div class="drop_down">
+
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="right">
+				<div class="right_title flex">
+					<div class="flex right_l">
+						<i class="icon" style="margin-left: 4%;"></i>
+						<p class="c_white">信息查询</p>
+						<div class="input_li flex">
+							<div class="search_box">
+								<p><input type="text" class="search_inp" name="" id="" value="" /></p>
+								<div class="flex search_pl">
+									<p><img class="search_img" src="__STATIC__/myhome/img/home/search@2x.png" /></p>
+									<p class="serch_text">搜索要查询的内容</p>
+								</div>
+							</div>
+							<div class="search_btn">
+								<a href="javascript:;">
+									<p class="se">搜索</p>
+								</a>
+								<p class="btn_bg"></p>
+							</div>
+						</div>
+					</div>
+					<div class="right_title_r c_white flex">
+						<p>当前位置：<span><span>信息查询</span></span></p>
+					</div>
+				</div>
+				<div class="r_conter">
+					<div>
+						<div class="list_text">
+							<ul>
+								{volist name="article" id="vo" empty="暂时没有数据"}
+									<li>
+										<a class="list_a flex" href="{:url('port/search/details',['id'=>$vo.id])}">
+											<p class="flex">
+												<i><img src="__STATIC__/myhome/img/survey/Arrow.png"/></i>
+												<span>{$vo.title}</span>
+											</p>
+											<span>{$vo['create_time']|date="Y-m-d",###}</span>
+										</a>
+									</li>
+								{/volist}
+							</ul>
+						</div>
+						<div class="r_bottom  flex">
+							{$article->render()}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="public/footer" /}
+		<script type="text/javascript">
+			//下拉列表
+			(function() {
+				var list_ul = document.querySelector('.list_ul');
+				var li_img = document.getElementsByClassName('li_img');
+				var drop_down = document.getElementsByClassName('drop_down');
+				var index = 0;
+				for(var i = 0; i < list_ul.children.length; i++) {
+					list_ul.children[i].setAttribute('index', i);
+					list_ul.children[i].children[0].children[0].onclick = function() {
+						index = this.parentNode.parentNode.getAttribute('index');
+						toggleClass(drop_down[index], 'drop_down_active');
+					}
+				}
+
+				function hasClass(obj, cls) {
+					var cls = cls || '';
+					if(cls.replace(/\s/g, '').length == 0) {
+						return false;
+					} else {
+						return new RegExp(' ' + cls + '').test(' ' + obj.className);
+					}
+				}
+
+				function toggleClass(obj, cls) {
+					hasClass(obj, cls) ? removeFn(obj, cls) : addFn(obj, cls);
+					console.log(index)
+				}
+
+				function removeFn(obj, cls) {
+					obj.classList.remove(cls);
+					li_img[index].style.transform = "rotate(0deg)"
+				}
+
+				function addFn(obj, cls) {
+					obj.classList.add(cls);
+					li_img[index].style.transform = "rotate(90deg)"
+				}
+			})();
+
+			//搜索框处理
+			(function() {
+				var search_pl = document.querySelector('.search_pl');
+				var search_inp = document.querySelector('.search_inp');
+				search_pl.onclick = function() {
+					search_pl.classList.add('search_pl_active');
+					search_inp.focus();
+				};
+				search_inp.onblur = function() {
+					if(search_inp.value == '') {
+						search_pl.classList.remove('search_pl_active');
+					}
+				}
+			})();
+
+			//搜索按钮
+			(function() {
+				var se = document.querySelector('.se');
+				se.addEventListener('mouseover', function() {
+					se.style.color = "#212121";
+				});
+				se.addEventListener('mouseout', function() {
+					se.style.color = '#898989';
+				})
+			})();
+			
+			//搜索框搜索
+			(function() {
+				var se = document.querySelector('.se');
+				var search_inp = document.querySelector('.search_inp');
+				se.onclick = function() {
+					if(search_inp.value.length > 0) {
+						var k = search_inp.value;
+						//parent.document.querySelector('.iframe_box').src = "/port/search/index";
+						window.location.href = '/port/search/index?k='+k;
+					} else {
+						window.location.href = '/port/search/index';
+					}
+				}
+			})();
+
+			//复制这个，都相同的
+			(function(){
+				var r_conter =document.querySelector('.r_conter');
+				var list=document.querySelector('.list');
+				var H=r_conter.offsetHeight;
+				list.style.height=H+'px'
+			})();
+		</script>
+	</body>
+
+</html>

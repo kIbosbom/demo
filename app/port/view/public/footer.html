@@ -1,0 +1,150 @@
+<style>
+	/*底部*/
+	.list_div{
+		width: 964px;
+		height: 0;
+		padding-top: 10px;
+		flex-wrap: wrap;
+		transition: all 0.3s;
+		-webkit-transition: all 0.3s;
+		opacity: 0;
+		display: none;
+	}
+	.list_div>a{
+		width: 25%;
+		font-size: 12px;
+		line-height: 12px;
+		color: #FFFFFF;
+		text-align: center;
+		padding: 10px 0;
+	}
+	.list_div_active{
+		display: flex;
+		display: -webkit-flex;
+		height: auto!important;
+		opacity: 1!important;
+	}
+	.up{
+		width: 14px;
+		margin-left: 6px;
+		transition: all 0.3s;
+		-webkit-transition: all 0.3s;
+	}
+	.up_active{
+		transform: rotate(180deg);
+		-webkit-transform: rotate(180deg);
+	}
+	/**/
+	.friend_div{
+		padding: 22px 0 10px;
+	}
+
+	.friend>p{
+		width: 8%;
+		flex-wrap: wrap;
+		-webkit-flex-wrap: wrap;
+		justify-content: flex-start;	
+		-webkit-justify-content: flex-start;	
+	}
+	.friend>p>a{
+		margin: 0 0.6%;
+		font-size: 14px;
+	}
+	
+	.list_a_div{
+		width: 92%;
+		flex-wrap: wrap;
+		-webkit-flex-wrap: wrap;
+	}
+	
+	.list_address{
+		margin: 0 8px;
+		font-size: 14px;
+	}
+</style>
+<div class="bottom_foot">
+	<div class="foot_new">
+		<!--这里选择复制覆盖-->
+		<div class="friend_div">
+			<div class="friend flex">
+				<p class="flex">
+					<a style="font-weight:550;text-decoration: none;" href="javascript:;">友情链接：</a>
+				</p>
+				<div class="flex list_a_div">
+					{volist name="link" id="v"}
+					<a class="flex list_address" style="font-weight:550;text-decoration: none;" tid="{$v.id}" href="javascript:;"><span>{$v.title}</span><img class="up" src="__STATIC__/myhome/img/home/up.png" /></a>
+					{/volist}
+				</div>
+			</div>
+			<div>
+				<div class="list_div flex">
+
+				</div>
+			</div>
+		</div>
+		<!--这里选择复制覆盖-->
+		<div class="copyright flex">
+			<!--修改：增加广东省民防协会所有-->
+			<a href="javascript:;" class="flex">
+				<p><img src="__STATIC__/myhome/img/home/py_img@2x.png" /></p>
+				<span>版权所有：{$conf.copyright}</span>
+			</a>
+			<!--修改：增加广东省民防协会所有-->
+			<!--增加style样式，直接写在html里面-->
+			<p class="flex">
+				<a target="_blank" style="text-decoration: none;" href="http://www.miibeian.gov.cn">{$conf.icp}</a>
+				<!-- <a href="javascript:;" style="text-decoration: none;">粤ICP备14030294号</a> -->
+				<a href="javascript:;" style="text-decoration: none;">联系热线：{$conf.phone}</a>
+				<!-- <a href="javascript:;" style="border-right: 1px solid rgba(145, 159, 212, 1);padding-left: 20px;">网站地图</a> -->
+				<a href="javascript:;"  onclick="alert('加入收藏失败，请使用Ctrl+D进行添加,或手动在浏览器里进行设置.')">收藏本站</a>
+			</p>
+			<!--增加style样式-->
+		</div>
+	</div>
+</div>
+<script src="__STATIC__/myhome/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	//友情链接点击
+	(function(){
+		var list_address=document.getElementsByClassName('list_address');
+		var list_div=document.querySelector('.list_div');
+		var up=document.getElementsByClassName('up');
+		var indexarr=true;
+		var num;
+		for(var i=0;i<list_address.length;i++){
+			list_address[i].setAttribute('index',i)
+			list_address[i].onclick=function(){
+				var index=this.getAttribute('index');//返回的下标,写ajx时用来判断
+				var link_id = this.getAttribute('tid');
+				if(!indexarr && num==index){
+					list_div.classList.remove('list_div_active')
+					up[index].classList.remove('up_active')
+					indexarr=true
+				}else{
+					if(num){
+						up[num].classList.remove('up_active')
+					}
+					//获取友情链接
+					$.ajax({
+				        type:"POST",
+				        url:'{:url("Base/link_aj")}',
+						data:{'id':link_id},
+				        dataType:"json",
+				        success:function(data){
+							$(".mp").remove();
+							var result=eval("("+data+")");
+							for(var i=0;i<result.length;i++){
+								var str = '<a class="mp" style="font-weight:550;text-decoration: none;" target="_blank" href="'+result[i]['src']+'">'+result[i]['title']+'</a>';
+			                	$(".list_div").append(str);//追加到你需要放在的位置
+			            	}
+				        }
+					});
+					up[index].classList.add('up_active');
+					list_div.classList.add('list_div_active');
+					indexarr=false
+				}
+				num=index
+			}
+		}
+	})();
+</script>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>首页-{$conf.title}</title>
+		{include file="public/header" /}
+		<style>
+			.cli,
+			.cli2 {
+				width: 94%;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				padding-right: 10px;
+			}
+		</style>
+	</head>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/title.css" />
+	<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/home.css" />
+
+	<body>
+		{include file="public/nav" /}
+		<div class="content">
+			<div class="content_title">
+				<p>
+					<a href="{:url('port/trends/details',['article_id'=>$Co.id,'cateid'=>5])}">{$Co.title}</a>
+				</p>
+				<p>
+					<a href="{:url('port/trends/details',['article_id'=>$Co.id,'cateid'=>5])}">{$Co.keywords}</a>
+				</p>
+			</div>
+			<div class="container flex">
+				<div class="container_left">
+					<div class="banner" id="b03" style="width: 100%;">
+						<ul class="banner_ul">
+							{volist name="Slide" id="vo"}
+							<li style="background: url({$vo.img})no-repeat;">
+								<a class="a_box" href="{$vo.src}"></a>
+								<p>
+									<a href="{$vo.src}">{$vo.title}</a>
+								</p>
+							</li>
+							{/volist}
+						</ul>
+						<div class="banner_bg"></div>
+					</div>
+					<div class="dynamic right_dy">
+						<div class="flex tit_r">
+							<ul class="dynamic_title flex title2">
+								<li>
+									<a href="javascript:;" class="dynamic_active">协会动态</a>
+								</li>
+								<li>
+									<a href="javascript:;">会员风采</a>
+								</li>
+								<li>
+									<a href="javascript:;">民防科普</a>
+								</li>
+								<span class="border_b border_b2"></span>
+							</ul>
+							<p class="more">
+								<a id="more" class="flex" href="{:url('port/News/index')}"><span>更多</span><span><img src="__STATIC__/myhome/img/home/icon_right.png"/></span></a>
+							</p>
+						</div>
+						<div class="list_dy_box list_dy_box2" k="1" style="height: 215px; padding: 12px 0 8px;">
+							<ul class="list_dy list_dy_right list_dy2 dy_active">
+								{volist name="xhNews" id="vo"}
+								<li class="list_dy_active">
+									<a title="{$vo.title}" href="{:url('port/Trends/details',['article_id'=>$vo.id,'cateid'=>5])}">
+										<p class="flex"><span class="dotg"></span>
+											<nobr class="cli2">{$vo.title}</nobr>
+										</p>
+										<p>{$vo['create_time']|date="Y-m-d",###}</p>
+									</a>
+								</li>
+								{/volist}
+							</ul>
+							<ul class="list_dy list_dy_right list_dy2">
+								{volist name="user" id="vo"}
+								<li class="list_dy_active">
+									<a title="{$vo.title}" href="{:url('port/user/details',['id'=>$vo.id])}">
+										<p class="flex"><span class="dotg"></span>
+											<nobr class="cli2">{$vo.title}</nobr>
+										</p>
+										<p>{$vo['create_time']|date="Y-m-d",###}</p>
+									</a>
+								</li>
+								{/volist}
+							</ul>
+							<ul class="list_dy list_dy_right list_dy2">
+								{volist name="mfnews" id="vo"}
+								<li class="list_dy_active">
+									<a title="{$vo.title}" href="{:url('port/Science/details',['article_id'=>$vo.id,'cateid'=>4])}">
+										<p class="flex"><span class="dotg"></span>
+											<nobr class="cli2">{$vo.title}</nobr>
+										</p>
+										<p>{$vo['create_time']|date="Y-m-d",###}</p>
+									</a>
+								</li>
+								{/volist}
+							</ul>
+						</div>
+					</div>
+
+				</div>
+				<div class="container_right">
+					<div class="dynamic">
+						<ul class="dynamic_title flex title1">
+							<li>
+								<a href="javascript:;" class="dynamic_active">通知公告</a>
+							</li>
+							<li>
+								<a href="javascript:;">政策法规</a>
+							</li>
+							<li>
+								<a href="javascript:;">行业信息</a>
+							</li>
+							<li>
+								<a href="javascript:;">证书查询</a>
+							</li>
+							<span class="border_b border_b1"></span>
+						</ul>
+						<div class="list_dy_box list_dy_box1" k='0'>
+							<ul class="list_dy list_dy1 dy_active">
+								{volist name="gd" id="vo"}
+								<li class="list_dy_active">
+									<a title="{$vo.title}" href="{:url('port/trends/details',['article_id'=>$vo.id,'cateid'=>5])}">
+										<p class="flex"><span class="dotg"></span>
+											<nobr class="cli">{$vo.title}</nobr>
+										</p>
+										<p>{$vo['create_time']|date="Y-m-d",###}</p>
+									</a>
+								</li>
+								{/volist}
+							</ul>
+							<ul class="list_dy list_dy1">
+								{volist name="Trends" id="vo"}
+								<li class="list_dy_active">
+									<a title="{$vo.title}" href="{:url('port/trends/details',['article_id'=>$vo.id,'cateid'=>5])}">
+										<p class="flex"><span class="dotg"></span>
+											<nobr class="cli">{$vo.title}</nobr>
+										</p>
+										<p>{$vo['create_time']|date="Y-m-d",###}</p>
+									</a>
+								</li>
+								{/volist}
+							</ul>
+							<ul class="list_dy list_dy1">
+								{volist name="hyNews" id="vo"}
+								<li class="list_dy_active">
+									<a title="{$vo.title}" href="{:url('port/News/details',['article_id'=>$vo.id,'cateid'=>6])}">
+										<p class="flex"><span class="dotg"></span>
+											<nobr class="cli">{$vo.title}</nobr>
+										</p>
+										<p>{$vo['create_time']|date="Y-m-d",###}</p>
+									</a>
+								</li>
+								{/volist}
+							</ul>
+							<div class="list_dy1">
+								<div class="table_box">
+									<div class="table_conter">
+										<div class="table_title">
+											<p>证件查询</p>
+										</div>
+										<div class="table_bottom">
+											<form action="{:url('port/Certificate/index')}" method="post">
+												<div class="table_input">
+													<div class="flex"><span style="display: inline-block;width: 60px; position: relative;"><ab style="letter-spacing: 24px;">姓名</ab><ab style="position: absolute;right: 0;">：</ab></span>‍‍
+														<p class="input_p"><input required="required" name="name" type="text" value="" oninvalid="setCustomValidity('请输入姓名')" oninput="setCustomValidity('')" /></p>
+													</div>
+													<div class="flex"><span class="text_t">身份证号：</span>
+														<p class="input_p"><input type="text" name="code" value=""/></p>
+													</div>
+													<div class="flex"><span class="text_t">证书编号：</span>
+														<p class="input_p" ><input type="text" name="number" value="" /></p>
+													</div>
+												</div>
+												<div class="flex" style="width: 83%;margin: 0 auto;padding: 0 0 10px;justify-content: center;-webkit-justify-content: center;">
+													<span style=" width: 60px;white-space: nowrap;visibility: hidden;"></span>
+													<p style="width: 80%; font-size: 12px;color: #333;padding-right: 2px;">注：<span>以上三项输入任意两项即可查询</span></p>
+												</div>
+												<div class="btn_box_order flex">
+													<span style="display: block; width: 60px;white-space: nowrap;visibility: hidden;"></span>
+													<a style="width: 86%; href="javascript:;">
+														<input class="table_btn" type="submit" value="查询">
+													</a>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="input_li flex">
+						<div class="search_box">
+							<p><input type="text" class="search_inp" name="" id="" value="" /></p>
+							<div class="flex search_pl">
+								<p><img src="__STATIC__/myhome/img/home/search@2x.png" /></p>
+								<p>搜索要查询的内容</p>
+							</div>
+						</div>
+						<div class="search_btn">
+							<a href="javascript:;">
+								<p class="se">搜索</p>
+							</a>
+							<p class="btn_bg"></p>
+						</div>
+					</div>
+
+					<div class="btn_box flex">
+						<div class="bg_c1">
+							<a href="{:url('port/Article/index')}">
+								<p><img src="__STATIC__/myhome/img/home/home@2x.png" /></p>
+								<p>协会概况</p>
+							</a>
+						</div>
+						<div class="bg_c2">
+							<a href="{:url('port/Certificate/index')}">
+								<p><img src="__STATIC__/myhome/img/home/certificate@2x.png" /></p>
+								<p>证书查询</p>
+							</a>
+						</div>
+						<div class="bg_c3">
+							<a href="{:url('port/User/index')}">
+								<p><img src="__STATIC__/myhome/img/home/member@2x.png" /></p>
+								<p>会员风采</p>
+							</a>
+						</div>
+						<div class="bg_c4">
+							<a href="{:url('port/Contact/survey')}">
+								<p><img src="__STATIC__/myhome/img/home/flag@2x.png" /></p>
+								<p>联系我们</p>
+							</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="flex bottom_img">
+				{volist name="slideInfo" id="vo"}
+				<p>
+					<a title="{$vo.desc}" href="{$vo.src}"><img alt="{$vo.desc}" src="{$vo.img}" /></a>
+				</p>
+				{/volist}
+			</div>
+		</div>
+		{include file="public/footer" /}
+		<script src="__STATIC__/myhome/js/unslider.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//轮播图
+			$(document).ready(function(e) {
+				$('#b03').unslider({
+					dots: true
+				});
+			});
+
+			//协会动态头部nav切换
+			var title1 = document.querySelector('.title1');
+			var title2 = document.querySelector('.title2');
+			var border_b1 = document.querySelector('.border_b1');
+			var border_b2 = document.querySelector('.border_b2');
+			var list_dy1 = document.getElementsByClassName('list_dy1');
+			var list_dy2 = document.getElementsByClassName('list_dy2 ');
+
+			//有修改，在这里开始复制
+			var states = 0;
+			var state = 1
+
+			function titleFun(demo1, demo2, demo3, state) {
+				var b_w = demo2.offsetWidth;
+				for(var i = 0; i < demo1.children.length - 1; i++) {
+					demo1.children[i].children[0].setAttribute('index', i);
+					demo1.children[i].children[0].onclick = function() {
+						var index = this.getAttribute('index'); //需要用到的index下标，写ajx时候用来判断
+						for(var n = 0; n < demo1.children.length - 1; n++) {
+							demo1.children[n].children[0].classList.remove('dynamic_active');
+						}
+						this.classList.add('dynamic_active');
+						demo2.style.left = b_w * index + 2 + 'px';
+						for(var g = 0; g < demo3.length; g++) {
+							demo3[g].classList.remove('dy_active');
+						}
+						demo3[index].classList.add('dy_active')
+						if(state == 1) {
+							states = index
+						}
+					}
+				}
+			};
+
+			titleFun(title1, border_b1, list_dy1); //协会动态+行业信息+证书查询
+			titleFun(title2, border_b2, list_dy2, state); //通知公告+民防科普
+
+			//点击更多判断
+			(function() {
+				var more = document.querySelector('.more');
+				more.onclick = function() {
+					if(states == 0) {
+						$('#more').attr('href', '/port/Trends');
+					}
+					if(states == 1) {
+						$('#more').attr('href', '/user/lst');
+					}
+					if(states == 2) {
+						$('#more').attr('href', '/port/Science');
+					}
+				}
+			})();
+
+			//搜索框处理
+			(function() {
+				var search_pl = document.querySelector('.search_pl');
+				var search_inp = document.querySelector('.search_inp');
+				search_pl.onclick = function() {
+					search_pl.classList.add('search_pl_active');
+					search_inp.focus();
+				};
+				search_inp.onblur = function() {
+					if(search_inp.value == '') {
+						search_pl.classList.remove('search_pl_active');
+					}
+				}
+			})();
+
+			//搜索按钮
+			(function() {
+				var se = document.querySelector('.se');
+				var btn_bg = document.querySelector('.btn_bg');
+				se.addEventListener('mouseover', function() {
+					btn_bg.style.width = 100 + '%';
+					se.style.color = "#212121";
+				});
+				se.addEventListener('mouseout', function() {
+					btn_bg.style.width = 0;
+					se.style.color = '#898989';
+				})
+			})();
+
+			//搜索框搜索
+			(function() {
+				var se = document.querySelector('.se');
+				var search_inp = document.querySelector('.search_inp');
+				se.onclick = function() {
+					if(search_inp.value.length > 0) {
+						var k = search_inp.value;
+						window.location.href = '/port/search/index?k=' + k;
+					} else {
+						window.location.href = '/port/search/index';
+					}
+				}
+			})();
+
+			//证书
+			function gradeChange() {
+				var myselect = document.getElementById('pid');
+				var index = myselect.selectedIndex;
+				var text_t = document.querySelector('.text_t');
+				var text = myselect.options[index].text;
+				text_t.innerText = text + '：'
+			}
+		</script>
+	</body>
+
+</html>

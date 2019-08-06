@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>会员风采-{$conf.title}</title>
+		{include file="public/header" /}
+	</head>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/title.css"/>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/download.css"/>
+	<body>
+		{include file="public/nav" /}
+		<div class="container flex">
+			{include file="user/left"}
+			<div class="right">
+				<div class="right_title flex">
+					<div class="flex right_l">
+						<i class="icon"></i>
+						<p class="c_white">会员动态</p>
+					</div>
+					<div class="right_title_r c_white flex">
+						<p>当前位置：<span><span>会员风采</span></span><span style="font-size: 14px;margin: 0 5px;">></span><span><span>会员动态</span></span></p>
+					</div>
+				</div>
+				<div class="r_conter">
+					<div>
+
+						<div class="list_text">
+							<ul>
+								{volist name="list" id="vo"}
+									<li>
+										<a class="list_a flex" href="{:url('port/user/detailsu',['id'=>$vo.id])}">
+											<p class="flex">
+												<i><img src="__STATIC__/myhome/img/survey/Arrow.png"/></i>
+												<span>{$vo.title}</span>
+											</p>
+											<span>{$vo['create_time']|date="Y-m-d",###}</span>
+										</a>
+									</li>
+								{/volist}
+							</ul>
+						</div>
+
+						<div class="r_bottom  flex">
+							{$list->render()}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="public/footer" /}
+		<script type="text/javascript">			
+			(function(){
+				var r_conter =document.querySelector('.r_conter');
+				var list=document.querySelector('.list');
+				var H=r_conter.offsetHeight;
+				list.style.height=H+'px'
+			})();
+		</script>
+	</body>
+
+</html>

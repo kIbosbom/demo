@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>协会概况-{$conf.title}</title>
+		{include file="public/header" /}
+		<style>
+			.container{
+				align-items: flex-start!important;
+				-webkit-align-items: flex-start!important;
+			}
+		</style>
+	</head>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/title.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/introduction.css" />
+	<body>
+		{include file="public/nav" /}
+		<!--头部-->
+		<div class="container flex">
+			<div class="left">
+				<div class="left_title flex c_white"><i class="icon"></i>
+					<p>协会概况</p>
+				</div>
+				<div class="list">
+					<ul class="list_ul">
+						{volist name="node" id="vo"}
+			                <li class="list_li">
+			                    {if condition="$vo['childer']") neq '0'"}
+			                       <a href="javascript:;">
+			                    {else /}
+									<a href="{:url('port/article/index',['article_id'=>$vo.id,'cateid'=>$cateid])}">
+			                    {/if}
+			                        <div class="flex">
+			                            <p><img class="li_img" src="__STATIC__/myhome/img/survey/Arrow.png" /></p>
+			                            <p class="c_333">{$vo.title}</p>
+			                        </div>
+			                    </a>
+			                    <div class="drop_down">
+			                        {volist name="vo['childer']" id="v"}
+			                            <p>
+											<!-- <a href="{:url('port/article/index',['article_id'=>$v.id,'cateid'=>$cateid])}">{$v.title}</a> -->
+											<a href="javascript:;" onclick="ajaxText($article_id = <?php echo $v['id'];?>,cateid = <?php echo $cateid ?>)">{$v.title}</a>						
+			                            </p>
+			                        {/volist}
+			                    </div>
+			                </li>
+			            {/volist}
+					</ul>
+				</div>
+			</div>
+			<div class="right">
+				<div class="right_title flex">
+					<div class="flex"><i class="icon"></i>
+						<p class="c_white s_name">{$map}</p>
+					</div>
+					<div class="right_title_r c_white flex">
+						<p>当前位置：<span><span>协会概况</span></span><span style="font-size: 14px;margin: 0 5px;">></span><span><span id="maf"></span><span class="s_name">{$map}</span></span></p>
+					</div>
+				</div>
+				<div class="r_conter">
+					<div>
+						<div class="r_text ">
+							<div class="text_title">
+								<p>{$article['title']}</p>
+								<p>发布日期：{$article['create_time']|date="Y-m-d",###}</p>
+								<p></p>
+							</div>
+							<div class="text_conter">
+								<p style="text-indent:2em;">
+									{$article['content']}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="public/footer" /}
+		<script src="__STATIC__/myhome/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript">
+			//ajax 文章
+			function ajaxText(article_id,cateid){
+				$.ajax({
+					type: "post",
+					url: "{:url('port/article/ajaxText')}",
+					data: {"article_id":article_id,'cateid':cateid},
+					dataType: "json",
+					success: function (data) {
+						if(data != '' || data != null){
+							$('.r_text').empty();
+							$('.s_name').empty();
+							var result=eval("("+data+")");
+							var str=
+								'<div class="text_title">'+
+									'<p>'+result['title']+'</p>'+
+									'<p>发布日期：'+time(result['create_time'])+'</p>'+
+									'<p>'+'</p>'+
+								'</div>'+
+								'<div class="text_conter">'+
+									'<p style="text-indent:2em;">'+result['content']+'</p>'+
+								'</div>'
+							$('.r_text').html(str);
+							$('#maf').html('<span id="maf">'+result['maf']+'</span><span style="font-size: 14px;margin: 0 5px;">></span>');
+							$('.s_name').html('<span id="map">'+result['map']+'</span>');
+						}
+					}
+				});
+			}
+			//时间戳
+			function time(sj)
+			{
+				var    now     = new Date(sj*1000);
+				var    year     =now.getFullYear();     
+				var   month  =now.getMonth()+1;     
+				var   date      =now.getDate();     
+				var   hour     =now.getHours();     
+				var   minute =now.getMinutes();     
+				var   second =now.getSeconds();  
+				return   year+"-"+month+"-"+date;     
+			}
+			//下拉列表
+			(function() {
+				var list_ul = document.querySelector('.list_ul');
+				var li_img = document.getElementsByClassName('li_img');
+				var drop_down = document.getElementsByClassName('drop_down');
+				var index = 0;
+				for(var i = 0; i < list_ul.children.length; i++) {
+					list_ul.children[i].setAttribute('index', i);
+					list_ul.children[i].children[0].children[0].onclick = function() {
+						index = this.parentNode.parentNode.getAttribute('index');
+						toggleClass(drop_down[index], 'drop_down_active');
+					}
+				}
+
+				function hasClass(obj, cls) {
+					var cls = cls || '';
+					if(cls.replace(/\s/g, '').length == 0) {
+						return false;
+					} else {
+						return new RegExp(' ' + cls + '').test(' ' + obj.className);
+					}
+				}
+
+				function toggleClass(obj, cls) {
+					hasClass(obj, cls) ? removeFn(obj, cls) : addFn(obj, cls);
+				}
+
+				function removeFn(obj, cls) {
+					obj.classList.remove(cls);
+					li_img[index].style.transform = "rotate(0deg)"
+				}
+
+				function addFn(obj, cls) {
+					obj.classList.add(cls);
+					li_img[index].style.transform = "rotate(90deg)"
+				}
+			})();
+			
+			(function(){
+				var r_conter =document.querySelector('.r_conter');
+				var list=document.querySelector('.list');
+				var H=r_conter.offsetHeight;
+				list.style.height=H+'px'
+			})();
+		</script>
+	</body>
+</html>

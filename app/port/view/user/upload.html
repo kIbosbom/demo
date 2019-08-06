@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>会员风采-{$conf.title}</title>
+		{include file="public/header" /}
+	</head>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/title.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/UEditor/themes/default/css/umeditor.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/default.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/mien.css" />
+	<body>
+		{include file="public/nav" /}
+		<div class="container flex">
+			{include file="user/left"}
+			<div class="right">
+				<div class="right_title flex">
+					<div class="flex right_l">
+						<i class="icon"></i>
+						<p class="c_white">会员风采</p>
+					</div>
+					<div class="right_title_r c_white flex">
+						<p>当前位置：<span><a href="javascript:;">会员风采</a></span><span style="font-size: 14px;margin: 0 5px;">></span><span><a href="javascript:;">会员资料上传</a></span></p>
+					</div>
+				</div>
+				<div class="r_conter">
+					<div class="r_active">
+						<div>
+							<form style="height:250px;" id='mainForm' method="post" enctype="multipart/form-data" action="{:url('port/user/upload')}">
+								<div class="textarea_box">
+									<div class="flex title_input">
+										<span>标题：</span>
+										<p><input type="text" name="title" /></p>
+									</div>
+									<div class="flex title_input">
+										<span>图片：</span>
+										<input id="file" name="file" type="file" /><span>图片大小比例：140×90</span>
+									</div>
+									<div class="flex title_input">
+										<span>内容：</span>
+											<textarea name="content" id="container" style="width:100%;height:200px;"></textarea>
+									</div>
+									<div class="test_  flex"><span>验证：</span>
+										<p><input style="height:30px;" name="captcha" type="text" id="code_input" placeholder="输入验证码" /></p>
+										<div><img style="height:30px;" onClick="this.src=this.src+'?'+Math.random()" src="{:captcha_src()}" alt="验证码" /></div>
+									</div>
+									<div class="upload_btn"><button style="width:150px;height:40px;" id="my_button">提交</button></div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="public/footer" /}
+		<script id="container" name="content" type="text/plain"></script>
+		<script type="text/javascript" src="__STATIC__/myhome/ueditor/ueditor.config.js"></script>
+		<script type="text/javascript" src="__STATIC__/myhome/ueditor/ueditor.all.js"></script>
+		<script type="text/javascript" src="__STATIC__/myhome/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript">
+		    var ue = UE.getEditor('container',{
+		      //初始化高度
+		      initialFrameHeight:200,
+		    });
+		    (function(){
+				var r_conter =document.querySelector('.r_conter');
+				var list=document.querySelector('.list');
+				var H=r_conter.offsetHeight;
+				list.style.height=H+'px'
+			})();
+		</script>
+	</body>
+</html>

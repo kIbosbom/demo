@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>民防科普-{$conf.title}</title>
+		{include file="public/header" /}
+		<style>
+			.container{
+				align-items: flex-start!important;
+				-webkit-align-items: flex-start!important;
+			}
+		</style>
+	</head>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/title.css"/>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/myhome/css/polular.css"/>
+	<body>
+		{include file="public/nav" /}
+		<!--头部-->		
+		<div class="container flex">
+			<div class="left">
+				<div class="left_title flex c_white"><i class="icon"></i>
+					<p>民防科普</p>
+				</div>
+				<div class="list">
+					<ul class="list_ul">
+						{volist name="node" id="vo"}
+			                <li class="list_li">
+			                    {if condition="$vo['childer']") neq '0'"}
+			                       <a href="javascript:;">
+			                    {else /}
+			                        <a href="{:url('port/Science/index',['article_id'=>$vo.id,'cateid'=>$cateid])}"> 
+			                    {/if}
+			                        <div class="flex">
+			                            <p><img class="li_img" src="__STATIC__/myhome/img/survey/Arrow.png" /></p>
+			                            <p class="c_333">{$vo.title}</p>
+			                        </div>
+			                    </a>
+			                    <div class="drop_down">
+			                        {volist name="vo['childer']" id="v"}
+			                            <p>
+			                                <a href="{:url('port/Science/index',['article_id'=>$v.id,'cateid'=>$cateid])}">{$v.title}</a>
+			                            </p>
+			                        {/volist}
+			                    </div>
+			                </li>
+			            {/volist}
+					</ul>
+				</div>
+			</div>
+			<div class="right">
+				<div class="right_title flex">
+					<div class="flex right_l">
+						<i class="icon"></i>
+						<p class="c_white">{$map}</p>
+					</div>
+					<div class="right_title_r c_white flex">
+						<p>当前位置：<span><span>民防科普</span></span><span style="font-size: 14px;margin: 0 5px;">></span><span><span>{$map}</span></span></p>
+					</div>
+				</div>
+				<div class="r_conter">
+					<div>
+
+						<div class="list_text">
+							<ul>
+								{volist name="article" id="vo"}
+									<li>
+										<a class="list_a flex" href="{:url('port/Science/details',['article_id'=>$vo.id,'cateid'=>$cateid])}">
+											<p class="flex">
+												<i><img src="__STATIC__/myhome/img/survey/Arrow.png"/></i>
+												<span>{$vo.title}</span>
+											</p>
+											<span>{$vo['create_time']|date="Y-m-d",###}</span>
+										</a>
+									</li>
+								{/volist}
+							</ul>
+						</div>
+
+						<div class="r_bottom  flex">
+							{$article->render()}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="public/footer" /}
+		<script type="text/javascript">
+			//下拉列表
+			(function() {
+				var list_ul = document.querySelector('.list_ul');
+				var li_img = document.getElementsByClassName('li_img');
+				var drop_down = document.getElementsByClassName('drop_down');
+				var index = 0;
+				for(var i = 0; i < list_ul.children.length; i++) {
+					list_ul.children[i].setAttribute('index', i);
+					list_ul.children[i].children[0].children[0].onclick = function() {
+						index = this.parentNode.parentNode.getAttribute('index');
+						toggleClass(drop_down[index], 'drop_down_active');
+					}
+				}
+
+				function hasClass(obj, cls) {
+					var cls = cls || '';
+					if(cls.replace(/\s/g, '').length == 0) {
+						return false;
+					} else {
+						return new RegExp(' ' + cls + '').test(' ' + obj.className);
+					}
+				}
+
+				function toggleClass(obj, cls) {
+					hasClass(obj, cls) ? removeFn(obj, cls) : addFn(obj, cls);
+					console.log(index)
+				}
+
+				function removeFn(obj, cls) {
+					obj.classList.remove(cls);
+					li_img[index].style.transform = "rotate(0deg)"
+				}
+
+				function addFn(obj, cls) {
+					obj.classList.add(cls);
+					li_img[index].style.transform = "rotate(90deg)"
+				}
+			})();
+			
+			//复制这个，都相同的
+			(function(){
+				var r_conter =document.querySelector('.r_conter');
+				var list=document.querySelector('.list');
+				var H=r_conter.offsetHeight;
+				list.style.height=H+'px'
+			})();
+		</script>
+	</body>
+
+</html>

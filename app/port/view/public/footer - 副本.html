@@ -1,0 +1,33 @@
+<div class="bottom_foot">
+	<div class="foot_new">
+		<div class="friend flex">
+			<!--修改html内容-->
+			<div>
+				<a href="javascript:;" style="font-weight:550;text-decoration: none;">友情链接：</a>
+			</div>
+			<div class="flex link_font">
+				{volist name="link" id="vo"}
+					<a target="_blank" href="{$vo.src}">{$vo.title}</a>
+				{/volist}
+			</div>
+			<!--修改html内容-->
+		</div>
+		<div class="copyright flex">
+			<!--修改：增加广东省民防协会所有-->
+			<a href="javascript:;" class="flex">
+				<p><img src="__STATIC__/myhome/img/home/py_img@2x.png" /></p>
+				<span>版权所有：{$conf.copyright}</span>
+			</a>
+			<!--修改：增加广东省民防协会所有-->
+			<!--增加style样式，直接写在html里面-->
+			<p class="flex">
+				<a target="_blank" style="text-decoration: none;" href="http://www.miibeian.gov.cn">{$conf.icp}</a>
+				<!-- <a href="javascript:;" style="text-decoration: none;">粤ICP备14030294号</a> -->
+				<a href="javascript:;" style="text-decoration: none;">联系热线：{$conf.phone}</a>
+				<!-- <a href="javascript:;" style="border-right: 1px solid rgba(145, 159, 212, 1);padding-left: 20px;">网站地图</a> -->
+				<a href="javascript:;"  onclick="alert('加入收藏失败，请使用Ctrl+D进行添加,或手动在浏览器里进行设置.')">收藏本站</a>
+			</p>
+			<!--增加style样式-->
+		</div>
+	</div>
+</div>
